@@ -1,4 +1,4 @@
-# Travle Mate 
+# Travel Mate 
 
 ## 🚀 Description:
 Travel Mate is a powerful, intuitive trip planning application that allows users to seamlessly organize every aspect of their vacation. Whether you're traveling solo or with a group, Travel Mate helps manage key aspects like flights, accommodations, daily activities, budgets, and detailed itineraries. The application is built using React, ensuring a smooth and responsive user experience.
