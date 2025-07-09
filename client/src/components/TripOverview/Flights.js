@@ -155,21 +155,39 @@ function Flights({ onBudgetUpdate }) {
           <List>
             {flights.length > 0 ? (
               flights.map((flight, index) => (
-                <ListItem key={index} secondaryAction={
-                  <>
-                    <Button variant="outlined" color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditFlight(index)} startIcon={<EditNoteIcon sx={{ fontSize: 18 }} />}>
-                      Edit
-                    </Button>
-                    <Button variant="outlined" color="error" size="small" onClick={() => handleDeleteFlight(index)} startIcon={<DeleteForeverIcon sx={{ fontSize: 18 }} />}>
-                      Delete
-                    </Button>
-                  </>
-                } divider>
-                  <ListItemText
-                    primary={`${flight.departure} ➝ ${flight.arrival} (${flight.type})`}
-                    secondary={`$${flight.cost.toFixed(2)}`}
-                  />
-                </ListItem>
+                <ListItem
+  key={index}
+  divider
+  style={{ display: 'block' }}
+  secondaryAction={
+    <div style={{ position: 'relative', transform: 'none' }}>
+      <Button
+        variant="outlined"
+        color="primary"
+        size="small"
+        sx={{ mr: 1 }}
+        onClick={() => handleEditFlight(index)}
+        startIcon={<EditNoteIcon sx={{ fontSize: 18 }} />}
+      >
+        Edit
+      </Button>
+      <Button
+        variant="outlined"
+        color="error"
+        size="small"
+        onClick={() => handleDeleteFlight(index)}
+        startIcon={<DeleteForeverIcon sx={{ fontSize: 18 }} />}
+      >
+        Delete
+      </Button>
+    </div>
+  }
+>
+  <ListItemText
+    primary={`${flight.departure} ➝ ${flight.arrival} (${flight.type})`}
+    secondary={`$${flight.cost.toFixed(2)}`}
+  />
+</ListItem>
               ))
             ) : (
               <ListItem>
