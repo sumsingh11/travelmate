@@ -1,33 +1,3 @@
-// const express = require("express");
-// const cors = require("cors");
-
-// const app = express();
-// app.use(express.json());
-// app.use(cors());
-
-// // Import Trip (Frontend sends a JSON file)
-// app.post("/import", (req, res) => {
-//     const tripData = req.body;
-//     res.json({ success: true, trip: tripData });
-// });
-
-// // Export Trip (Frontend requests a JSON file)
-// app.post("/export", (req, res) => {
-//     const tripData = JSON.stringify(req.body, null, 2);
-//     res.setHeader("Content-Disposition", "attachment; filename=trip.json");
-//     res.setHeader("Content-Type", "application/json");
-//     res.send(tripData);
-// });
-
-// app.get("/", (req, res) => {
-//     res.send("TravelMate Backend is Running!");
-// });
-
-// // Start the server
-// const PORT = 5003;
-// app.listen(PORT, () => console.log(`Backend running on http://localhost:${PORT}`)); 
-
-
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -37,7 +7,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
-
 require('./config/passport'); // Passport strategies
 
 const authRoutes = require('./routes/auth');
@@ -48,26 +17,35 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
-// Sessions for social login
+// Enable CORS for frontend
+app.use(cors({
+  origin: process.env.CLIENT_URL,  // e.g. https://travelmate-frontend-x5z6.onrender.com
+  credentials: true
+}));
+
+// Sessions for login (used with passport)
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
+// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 
-app.get('/', (req, res) => res.send('Travel Mate API Running!'));
+// Health check route
+app.get('/', (req, res) => {
+  res.send('Travel Mate API Running!');
+});
 
+// Start server after MongoDB connects
 const PORT = process.env.PORT || 5003;
 
 mongoose.connect(process.env.MONGO_URI)
@@ -76,4 +54,6 @@ mongoose.connect(process.env.MONGO_URI)
       console.log(`Server running on port ${PORT}`);
     });
   })
-  .catch(err => console.error('DB connection error:', err));
+  .catch(err => {
+    console.error('DB connection error:', err);
+  });
