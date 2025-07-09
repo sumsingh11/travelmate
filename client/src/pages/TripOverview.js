@@ -70,7 +70,7 @@ function TripOverview() {
 
       <Container sx={{ mt: 4, mb: 4 }}>
         {/* Flights & Stays Section */}
-        <Grid container spacing={4} alignItems="stretch">
+        <Grid container spacing={0} alignItems="stretch">
           <Grid item md={6} xs={12} display="flex">
             <div style={{ width: "100%", height: "100%" }}>
               <Flights onBudgetUpdate={handleExpensesUpdate} />
