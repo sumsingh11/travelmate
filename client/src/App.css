@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiListItem-padding{
+      display: block !important;
+}
+
+.css-19bscgc {
+    position: relative !important;
+    transform: none !important;
+}
