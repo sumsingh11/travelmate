@@ -183,13 +183,18 @@ function Activities() {
                 <ListGroup className="mt-3">
                   {activities.length > 0 ? (
                     activities.map((activity) => (
-                      <ListGroup.Item key={activity.id} className="d-flex justify-content-between align-items-center">
+                      <ListGroup.Item key={activity.id} className="d-flex justify-content-between align-items-center" style={{ display: 'block' }}>
                         <div className="text-start">
                           <strong>{activity.title}</strong>
                           {activity.description && <p className="mb-1">{activity.description}</p>}
                           <span className="text-muted"><PaidIcon /> Cost Per Person: ${parseFloat(activity.cost).toFixed(2)}</span>
                         </div>
-                        <div>
+                        <div
+                          style={{
+                            position: 'relative',
+                            transform: 'none'
+                          }}
+                        >
                           <Button variant="outline-primary" size="sm" onClick={() => handleOpenModal(activity)}>
                             <EditIcon /> Edit
                           </Button>{" "}
